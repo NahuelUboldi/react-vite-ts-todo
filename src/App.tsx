@@ -1,30 +1,29 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import './App.css';
-import ActivityInput from './components/ActivityInput';
 import Header from './components/Header';
-import Counter from './components/test/Counter';
+import Task from './components/Task';
+import { ITask } from './interfaces';
 
-interface activityInter {
-  id: number;
-  activity: string;
-  completed: boolean;
-}
-
-function App() {
-  const [activities, setActivities] = useState<activityInter[]>([]);
-
+const App: FC = () => {
+  const [tasks, setTasks] = useState<ITask[]>([]);
   return (
     <div className='App flex flex-col items-center'>
       <>
-        <Header title='Todo app' />
-        {/* <Counter /> */}
-        {activities.map((a) => {
-          console.log(a);
+        <Header title='Todo app' tasks={tasks} setTasks={setTasks} />
+
+        {tasks.map((t: ITask, key: number) => {
+          console.log(t.taskName);
+          return (
+            <Task
+              taskName={t.taskName}
+              isCompleted={t.isCompleted}
+              setTasks={setTasks}
+            />
+          );
         })}
-        <ActivityInput activities={activities} setActivities={setActivities} />
       </>
     </div>
   );
-}
+};
 
 export default App;
