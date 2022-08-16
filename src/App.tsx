@@ -15,8 +15,11 @@ const App: FC = () => {
           console.log(t.taskName);
           return (
             <Task
+              key={t.id}
+              id={t.id}
               taskName={t.taskName}
               isCompleted={t.isCompleted}
+              tasks={tasks}
               setTasks={setTasks}
             />
           );

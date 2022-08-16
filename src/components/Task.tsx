@@ -1,24 +1,41 @@
 import { Dispatch, SetStateAction } from 'react';
 import { ITask } from '../interfaces';
-import { MdClose, MdCheck } from 'react-icons/md';
+import TaskBtn from './TaskBtn';
+
 type Props = {
+  id: ITask['id'];
+  tasks: ITask[];
   taskName: ITask['taskName'];
   isCompleted: ITask['isCompleted'];
   setTasks: Dispatch<SetStateAction<ITask[]>>;
 };
 
-const Task = ({ taskName, isCompleted, setTasks }: Props) => {
+const Task = ({ id, tasks, taskName, isCompleted, setTasks }: Props) => {
   console.log('hello world');
 
   return (
-    <div className='flex my-1 bg-blue-100 hover:bg-blue-300 rounded'>
-      <h2 className=' py-1 px-4 '>{taskName}</h2>
-      <button className='bg-green-100 hover:bg-green-300 py-1 px-2'>
-        <MdCheck />
-      </button>
-      <button className='bg-red-100 hover:bg-red-300 py-1 px-2 rounded-r'>
-        <MdClose />
-      </button>
+    <div
+      className={`flex my-1 rounded ${
+        !isCompleted
+          ? 'bg-blue-100 hover:bg-blue-200'
+          : 'bg-gray-100 hover:bg-gray-200 line-through'
+      }`}
+    >
+      <h2 className='py-1 px-4'>{taskName}</h2>
+      <TaskBtn
+        btnType='check'
+        tasks={tasks}
+        id={id}
+        setTasks={setTasks}
+        isCompleted={isCompleted}
+      />
+      <TaskBtn
+        btnType='close'
+        tasks={tasks}
+        id={id}
+        setTasks={setTasks}
+        isCompleted={isCompleted}
+      />
     </div>
   );
 };

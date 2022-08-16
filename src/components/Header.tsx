@@ -24,6 +24,7 @@ const Header = ({ title, tasks, setTasks }: componentProps) => {
     e.preventDefault();
     if (!newTask) return;
     const tempTask = {
+      id: new Date().valueOf(),
       taskName: newTask,
       isCompleted: false,
     };
